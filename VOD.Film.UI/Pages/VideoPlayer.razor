@@ -1,0 +1,27 @@
+﻿@using Microsoft.JSInterop
+@inject IJSRuntime _jsRuntime
+<div>
+    <video id="videoPlayer" controls width="640" height="360" allowfullscreen @ref="VideoPlayerRef">
+        <source src="@VideoUrl" type="@VideoType" />
+    </video>
+    <button @onclick="ToggleFullScreen">Toggle Fullscreen</button>
+</div>
+
+
+@code {
+    [Parameter]
+    public string? VideoUrl { get; set; }
+
+    [Parameter]
+    public string? VideoType { get; set; }
+
+    private bool IsFullScreen { get; set; } = false;
+
+    private ElementReference VideoPlayerRef;
+
+    public async Task ToggleFullScreen()
+    {
+        IsFullScreen = !IsFullScreen;
+        await _jsRuntime.InvokeAsync<object>("toggleFullScreen", VideoPlayerRef, IsFullScreen);
+    }
+}

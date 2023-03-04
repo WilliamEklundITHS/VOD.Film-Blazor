@@ -1,0 +1,69 @@
+﻿@page "/film-index"
+@using VOD.Film.Common.Services;
+@using VOD.Film.Common.DTOs;
+@using VOD.Film.Common.Services.AdminService;
+@inject IAdminService _adminService
+@inject NavigationManager _navManager
+
+<PageTitle>Film Index</PageTitle>
+<table class="custom-table">
+    <thead>
+        <tr>
+            <th class="custom-table__header">Title</th>
+            <th class="custom-table__header">Released</th>
+            <th class="custom-table__header">Is Free</th>
+            <th class="custom-table__header"></th>
+            <th class="custom-table__header"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var film in films)
+        {
+            <tr>
+                <td class="custom-table__cell custom-table__cell--title">
+                    <span> @film.Title</span>
+                    <img src="@film.FilmPosterUrl" class="custom-table__image" />
+                </td>
+                <td class="custom-table__cell">@film.Released</td>
+                <td class="custom-table__cell">
+                    <span>@(film.Free ? "Free" : "$")</span>
+                </td>
+                <td class="custom-table__cell">
+                    <a href="@($"{RelativeUri}/edit/{@film.Id}")"
+                       class="custom-table__button custom-table__button--edit">
+                        Edit
+                    </a>
+                </td>
+                <td class="custom-table__cell">
+                    <a href="@($"{RelativeUri}/delete/{@film.Id}")"
+                       class="custom-table__button custom-table__button--delete">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+@code {
+    string? RelativeUri { get; set; }
+
+    List<FilmDTO> films = new List<FilmDTO>();
+    protected override async Task OnInitializedAsync()
+    {
+        films = await GetFilmsAsync();
+        RelativeUri = ToRealtivePathUri();
+    }
+
+    private async Task<List<FilmDTO>> GetFilmsAsync()
+    {
+        var films = await _adminService.GetAsync<FilmDTO>("Film");
+        return films.ToList();
+    }
+    string ToRealtivePathUri()
+    {
+        return _navManager.ToBaseRelativePath(_navManager.Uri);
+    }
+}

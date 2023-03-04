@@ -1,0 +1,17 @@
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\bin\Debug\net7.0\VOD.Data.deps.json
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\bin\Debug\net7.0\VOD.Data.runtimeconfig.json
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\bin\Debug\net7.0\VOD.Data.dll
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\bin\Debug\net7.0\VOD.Data.pdb
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\bin\Debug\net7.0\VOD.Common.dll
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\bin\Debug\net7.0\VOD.Common.pdb
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\obj\Debug\net7.0\VOD.Data.csproj.AssemblyReference.cache
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\obj\Debug\net7.0\VOD.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\obj\Debug\net7.0\VOD.Data.AssemblyInfoInputs.cache
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\obj\Debug\net7.0\VOD.Data.AssemblyInfo.cs
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\obj\Debug\net7.0\VOD.Data.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\obj\Debug\net7.0\VOD.Data.csproj.CopyComplete
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\obj\Debug\net7.0\VOD.Data.dll
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\obj\Debug\net7.0\refint\VOD.Data.dll
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\obj\Debug\net7.0\VOD.Data.pdb
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\obj\Debug\net7.0\VOD.Data.genruntimeconfig.cache
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\obj\Debug\net7.0\ref\VOD.Data.dll

@@ -1,0 +1,46 @@
+﻿@using VOD.Film.Common.DTOs;
+@inject NavigationManager _navManager
+
+
+@if (GroupedFilms == null || GroupedFilms.Count == 0)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="film-container">
+
+    @foreach (var genreGroup in GroupedFilms)
+    {
+        <div class="film-grid">
+        <h2>@genreGroup.Key</h2>
+
+        <ul>
+            @foreach (var film in genreGroup.Value)
+            {
+                    <div class="film-grid-item" @onclick="(() => FilmSelected(film.Id))">
+                        <div class="film-poster" style="background-image: url('@film.FilmPosterUrl')"></div>
+                        <div class="film-title">@film.Title</div>
+                    </div>
+            }
+        </ul>
+            </div>
+    }
+    </div>
+}
+
+@code {
+
+
+    [Parameter]
+    public List<FilmDTO> Films { get; set; } = new();
+
+    [Parameter]
+    public Dictionary<string, List<FilmDTO>> GroupedFilms { get; set; } = new();
+
+    private void FilmSelected(int id)
+    {
+        _navManager.NavigateTo($"/film-details/{id}");
+    }
+}
+

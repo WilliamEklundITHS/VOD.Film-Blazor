@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "A+qQ/f4+ngMC5DJjSe3UU3q4KhH21iOuJZM5yQlymvg=",
+  "Source": "VOD.Film.Api",
+  "BasePath": "_content/VOD.Film.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

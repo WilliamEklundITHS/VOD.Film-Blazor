@@ -1,0 +1,72 @@
+﻿@page "/{Uri}/film/delete/{FilmId}"
+@using VOD.Film.Common.DTOs;
+@using VOD.Film.Common.Services;
+@using VOD.Film.Common.Services.AdminService;
+@inject NavigationManager _navManager
+@inject IAdminService _adminService
+<h3>Delete Film</h3>
+<PageTitle>Delete Film</PageTitle>
+<div>
+
+    @if(isDeleting){
+
+    }
+    else
+    {
+      <p>Are you sure you want to delete the following film?</p>
+      <form @onsubmit="HandleValidSubmit">
+          <input value="@FilmToDelete.Title" disabled/>
+        <button class="btn btn-danger" type="submit">Delete</button>
+      </form>
+    }
+  
+</div>
+<strong>@SuccessMsg</strong>
+@code{
+    [Parameter]
+    public string? FilmId { get; set; }
+
+    [Parameter]
+    public string? Uri { get; set; }
+
+    private bool isDeleting { get; set; } = false;
+
+    private string SuccessMsg = string.Empty;
+
+    private FilmDTO FilmDTO = new();
+
+    private FilmRequestDTO FilmToDelete = new();
+
+    private async Task HandleValidSubmit()
+    {
+        isDeleting = true;
+        await DeleteFilmAsync();
+        _navManager.NavigateTo($"/admin-portal/film", true);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Uri = _navManager.ToBaseRelativePath(_navManager.Uri);
+        FilmToDelete = await GetFilmAsync() ?? new FilmRequestDTO();
+    }
+
+    private async Task<FilmRequestDTO> GetFilmAsync()
+    {
+        var film = await _adminService.GetSingleAsync<FilmRequestDTO>($"Film/{FilmId}");
+
+        if(film == null)
+        {
+            _navManager.NavigateTo(_navManager.BaseUri);
+        }
+        return film;
+    }
+
+    private async Task DeleteFilmAsync()
+    {
+        if (int.TryParse(FilmId, out int id))
+        {
+            var isSuccess = await _adminService.DeleteAsync($"Film/{id}");
+           var responseMsg = isSuccess ? SuccessMsg = "Success" : SuccessMsg = "Error";
+        }
+    } 
+}

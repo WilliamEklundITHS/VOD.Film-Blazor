@@ -1,0 +1,62 @@
+﻿@page "/admin-portal/{SelectedEntity}"
+
+
+@using VOD.Film.Admin.UI.Pages.Admin.Film
+@using VOD.Film.Common.Enums
+@using VOD.Film.Common.ViewModels;
+@inject NavigationManager _navManager
+
+<PageTitle>AdminPortal</PageTitle>
+<h3>AdminPortal</h3>
+<div>
+    @foreach (var entity in EntityViewModel.AvailableEntities.ToList())
+    {
+     <button
+         class="@(EntityViewModel.SelectedEntity == entity ? "active" : "")"
+         @onclick="() => HandleEntitySelected(entity)" >
+            @entity
+     </button>
+    }
+
+</div>
+<style>
+    .active {
+        background-color: gray;
+    }
+</style>
+
+ <div class="nav-item px-3">
+            <NavLink class="nav-link" href="@($"create-{EntityViewModel.SelectedEntity.ToString().ToLower()}")">
+                <span class="oi oi-list-rich" aria-hidden="true"></span>Create @EntityViewModel.SelectedEntity
+            </NavLink>
+        </div>
+
+    @if(EntityViewModel.SelectedEntity is Entity.Film)
+    {
+    <FilmIndex></FilmIndex>
+    }
+           
+@code {
+    EntitySelectionViewModel EntityViewModel = new();
+
+    [Parameter]
+    public string SelectedEntity { get; set; } = "";
+
+    private void HandleEntitySelected(Entity selectedEntity)
+    {
+        EntityViewModel.SelectedEntity = selectedEntity;
+        _navManager.NavigateTo($"/admin-portal/{selectedEntity}");
+    }
+
+
+    protected override void OnInitialized()
+    {
+        var uri = _navManager.ToBaseRelativePath(_navManager.Uri);
+
+        var isEnumParsed = Enum.TryParse(SelectedEntity, true, out Entity parsedEnumValue);
+        if (isEnumParsed)
+        {
+            EntityViewModel.SelectedEntity = parsedEnumValue;
+        }
+    }
+}

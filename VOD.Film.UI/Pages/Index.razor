@@ -1,0 +1,25 @@
+﻿@page "/"
+@using VOD.Film.Common.DTOs;
+@using VOD.Film.Common.Services.ClientService;
+@inject IClientService _clientService
+@inject NavigationManager _navManager
+
+
+
+<FilmGrid Films="Films" GroupedFilms="GroupedMovies"></FilmGrid>
+
+@code{
+    List<FilmDTO> Films { get; set; } = new();
+
+    private Dictionary<string, List<FilmDTO>> GroupedMovies { get; set; } = new();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        Films = await _clientService.GetAllAsync<FilmDTO>("Film");
+        GroupedMovies = await _clientService.GetAllByGroupingAsync<FilmDTO>("Film?GetByGenre=true");
+    }
+
+  
+ 
+}

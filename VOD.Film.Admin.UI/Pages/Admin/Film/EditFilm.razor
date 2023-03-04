@@ -1,0 +1,154 @@
+﻿@page "/{Uri}/film/edit/{FilmId}"
+@using VOD.Film.Common.DTOs;
+@using VOD.Film.Common.Services;
+@using VOD.Film.Common.Services.AdminService;
+@inject NavigationManager _navManager
+@inject IAdminService _adminService
+<h3>EditFilm</h3>
+<PageTitle>Edit Film</PageTitle>
+
+<EditForm Model="@FilmToUpdate" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="Title">Title</label>
+        <InputText id="Title" @bind-Value="FilmToUpdate.Title"  DisplayName="@FilmToUpdate.Title"></InputText>
+        <ValidationMessage For="@(() => FilmToUpdate.Title)"></ValidationMessage>
+    </div>
+
+    <div class="form-group">
+        <label for="Released">Released</label>
+        <InputDate id="Released" @bind-Value="FilmToUpdate.Released"></InputDate>
+        <ValidationMessage For="@(() => FilmToUpdate.Title)"></ValidationMessage>
+    </div>
+
+    <div class="form-group">
+        <label for="Free">Free</label>
+        <InputCheckbox id="Free" @bind-Value="FilmToUpdate.Free"></InputCheckbox>
+    </div>
+
+    <div class="form-group">
+        <label for="Description">Description</label>
+        <InputText id="Description" @bind-Value="FilmToUpdate.Description"></InputText>
+        <ValidationMessage For="@(() => FilmToUpdate.Description)"></ValidationMessage>
+    </div>
+
+    <div class="form-group">
+        <label for="FilmUrl">Film URL</label>
+        <InputText id="FilmUrl" @bind-Value="FilmToUpdate.FilmUrl"></InputText>
+        <ValidationMessage For="@(() => FilmToUpdate.FilmUrl)"></ValidationMessage>
+    </div>
+
+
+    @if(FilmToUpdate.DirectorId != 0) {
+          <div class="form-group">
+        <label for="director">Director</label>
+        <select required class="form-control" id="director" @bind="FilmToUpdate.DirectorId">
+            @foreach (var director in directors)
+            {
+                <option value="@director.Id"
+                    selected="@(FilmToUpdate.DirectorId.Equals(director.Id))">
+                    @director.Name
+                </option>
+            }
+        </select>
+        </div>
+    }
+
+    @if(FilmToUpdate.SimilarFilmsIds != null)
+    {  
+        <div class="form-group">
+        <label for="similarFilms">Similar Films</label>
+        <select multiple class="form-control" id="similarFilms"
+                @bind="FilmToUpdate.SimilarFilmsIds">
+            @foreach (var similarFilm in similarFilms)
+            {
+                <option value="@similarFilm.Id"
+                        selected="@(FilmToUpdate.SimilarFilmsIds.Contains(similarFilm.Id))">
+                        @similarFilm.Title
+                </option>
+            }
+        </select>
+    </div> 
+    }
+ 
+    @if (FilmToUpdate.GenreIds != null)
+    {
+        <div class="form-group">
+            <label for="genres">Genres</label>
+            <select multiple class="form-control" id="genres" @bind="FilmToUpdate.GenreIds">
+                @foreach (var genre in genres)
+                {
+                    <option value="@genre.Id" 
+                    selected="@(FilmToUpdate.GenreIds.Contains(genre.Id))">
+                        @genre.Name
+                    </option>
+                }         
+            </select>
+        </div>
+    }
+    <button type="submit" class="btn btn-primary">Edit</button>
+</EditForm>
+<strong>@SuccessMsg</strong>
+
+@code {
+
+
+    private string SuccessMsg = string.Empty;
+    private bool isSuccess;
+    private FilmRequestDTO FilmDTO = new();
+
+
+    private List<DirectorDTO> directors = new();
+    private List<FilmDTO> similarFilms = new();
+    private List<GenreDTO> genres = new();
+    private FilmRequestDTO FilmToUpdate = new();
+
+    private async Task HandleValidSubmit()
+    {
+        var response = await _adminService.PutAsync($"Film/{FilmId}", FilmToUpdate);
+        var responseMsg = response != null ? SuccessMsg = "Success" : SuccessMsg = "Error";
+    }
+    [Parameter]
+    public string? FilmId { get; set; }
+
+    [Parameter]
+    public string? Uri { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        Uri = _navManager.ToBaseRelativePath(_navManager.Uri);
+
+        FilmToUpdate = await GetFilmAsync() ?? new FilmRequestDTO();
+        directors = await GetDirectorsAsync() ?? new List<DirectorDTO>();
+        similarFilms = await GetFilmsAsync();
+        genres = await GetGenresAsync();
+    }
+    private async Task<FilmRequestDTO> GetFilmAsync()
+    {
+        var film = await _adminService.GetSingleAsync<FilmRequestDTO>($"Film/GetAsRequestModel/{FilmId}");
+        return film;
+    }
+
+    private async Task<List<DirectorDTO>> GetDirectorsAsync()
+    {
+        var directors = await _adminService.GetAsync<DirectorDTO>("Director");
+        return directors.ToList();
+    }
+    private async Task<List<FilmDTO>> GetFilmsAsync()
+    {
+        var films = await _adminService.GetAsync<FilmDTO>("Film?IncludeAll=true");
+        return films.ToList();
+    }
+    private async Task<List<GenreDTO>> GetGenresAsync()
+    {
+        var genres = await _adminService.GetAsync<GenreDTO>("Genre");
+        return genres.ToList();
+    }
+
+
+}
+
+

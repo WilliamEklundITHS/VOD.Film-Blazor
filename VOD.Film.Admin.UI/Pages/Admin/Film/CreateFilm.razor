@@ -1,0 +1,118 @@
+﻿@page "/create-film"
+@using VOD.Film.Common.Services;
+@using VOD.Film.Common.DTOs;
+@using VOD.Film.Common.Services.AdminService;
+@inject IAdminService _adminService
+
+<PageTitle>Create Film</PageTitle>
+
+<h3>Add New Film</h3>
+
+<EditForm Model="@FilmDTO" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="Title">Title</label>
+        <InputText id="Title" @bind-Value="FilmDTO.Title"></InputText>
+        <ValidationMessage For="@(() => FilmDTO.Title)"></ValidationMessage>
+    </div>
+
+    <div class="form-group">
+        <label for="Released">Released</label>
+        <InputDate id="Released" @bind-Value="FilmDTO.Released"></InputDate>
+        <ValidationMessage For="@(() => FilmDTO.Released)"></ValidationMessage>
+    </div>
+
+    <div class="form-group">
+        <label for="Free">Free</label>
+        <InputCheckbox id="Free" @bind-Value="FilmDTO.Free"></InputCheckbox>
+    </div>
+
+    <div class="form-group">
+        <label for="Description">Description</label>
+        <InputText id="Description" @bind-Value="FilmDTO.Description"></InputText>
+        <ValidationMessage For="@(() => FilmDTO.Description)"></ValidationMessage>
+    </div>
+
+    <div class="form-group">
+        <label for="FilmUrl">Film URL</label>
+        <InputText id="FilmUrl" @bind-Value="FilmDTO.FilmUrl"></InputText>
+        <ValidationMessage For="@(() => FilmDTO.FilmUrl)"></ValidationMessage>
+    </div>
+    <div class="form-group">
+        <label for="FilmPosterUrl">FilmPoster URL</label>
+        <InputText id="FilmPosterUrl" @bind-Value="FilmDTO.FilmPosterUrl"></InputText>
+        <ValidationMessage For="@(() => FilmDTO.FilmPosterUrl)"></ValidationMessage>
+    </div>
+
+    <div class="form-group">
+        <label for="director">Director</label>
+        <select required class="form-control" id="director" @bind="FilmDTO.DirectorId">
+            @foreach (var director in directors)
+            {
+                <option value="@director.Id">@director.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="similarFilms">Similar Films</label>
+        <select multiple class="form-control" id="similarFilms" @bind="FilmDTO.SimilarFilmsIds">
+            @foreach (var similarFilm in similarFilms)
+            {
+                <option value="@similarFilm.Id">@similarFilm.Title</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="genres">Genres</label>
+        <select multiple class="form-control" id="genres" @bind="FilmDTO.GenreIds">
+            @foreach (var genre in genres)
+            {
+                <option value="@genre.Id">@genre.Name</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Add</button>
+</EditForm>
+<strong>@SuccessMsg</strong>
+
+@code {
+    private string SuccessMsg = "";
+    private bool isSuccess;
+    private FilmRequestDTO FilmDTO = new();
+    private List<DirectorDTO> directors = new();
+    private List<FilmDTO> similarFilms = new();
+    private List<GenreDTO> genres = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        FilmDTO.SimilarFilmsIds = Array.Empty<int>();
+        FilmDTO.GenreIds = Array.Empty<int>();
+        directors = await GetDirectorsAsync();
+        similarFilms = await GetFilmsAsync();
+        genres = await GetGenresAsync();
+    }
+    private async Task<List<DirectorDTO>> GetDirectorsAsync()
+    {
+        var directors = await _adminService.GetAsync<DirectorDTO>("Director");
+        return directors.ToList();
+    }
+    private async Task<List<FilmDTO>> GetFilmsAsync()
+    {
+        var films = await _adminService.GetAsync<FilmDTO>("Film?IncludeAll=true");
+        return films.ToList();
+    }
+    private async Task<List<GenreDTO>> GetGenresAsync()
+    {
+        var genres = await _adminService.GetAsync<GenreDTO>("Genre");
+        return genres.ToList();
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        var responseDTO = await _adminService.PostAsync<FilmRequestDTO>("Film", FilmDTO);       
+      SuccessMsg = responseDTO != null ? SuccessMsg = "Success" : SuccessMsg = "Error";
+    }
+}

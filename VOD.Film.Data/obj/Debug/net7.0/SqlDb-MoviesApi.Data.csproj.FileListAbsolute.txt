@@ -1,0 +1,17 @@
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\bin\Debug\net7.0\SqlDb-MoviesApi.Data.deps.json
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\bin\Debug\net7.0\SqlDb-MoviesApi.Data.dll
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\bin\Debug\net7.0\SqlDb-MoviesApi.Data.pdb
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\obj\Debug\net7.0\SqlDb-MoviesApi.Data.csproj.AssemblyReference.cache
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\obj\Debug\net7.0\SqlDb-MoviesApi.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\obj\Debug\net7.0\SqlDb-MoviesApi.Data.AssemblyInfoInputs.cache
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\obj\Debug\net7.0\SqlDb-MoviesApi.Data.AssemblyInfo.cs
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\obj\Debug\net7.0\SqlDb-MoviesApi.Data.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\obj\Debug\net7.0\SqlDb-MoviesApi.Data.dll
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\obj\Debug\net7.0\refint\SqlDb-MoviesApi.Data.dll
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\obj\Debug\net7.0\SqlDb-MoviesApi.Data.pdb
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\obj\Debug\net7.0\ref\SqlDb-MoviesApi.Data.dll
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\bin\Debug\net7.0\SqlDb-MoviesApi.Data.runtimeconfig.json
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\obj\Debug\net7.0\SqlDb-MoviesApi.Data.genruntimeconfig.cache
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\bin\Debug\net7.0\SqlDb-MovieApi.Common.dll
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\bin\Debug\net7.0\SqlDb-MovieApi.Common.pdb
+C:\Users\Admin\source\repos\uppgifter\SqlDb-MoviesApi\SqlDb-MoviesApi.Data\obj\Debug\net7.0\SqlDb-MoviesApi.Data.csproj.CopyComplete

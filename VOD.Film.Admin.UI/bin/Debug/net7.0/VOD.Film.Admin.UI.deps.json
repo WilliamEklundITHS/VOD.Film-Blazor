@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "VOD.Film.Admin.UI/1.0.0": {
+        "dependencies": {
+          "VOD.Film.Common": "1.0.0"
+        },
+        "runtime": {
+          "VOD.Film.Admin.UI.dll": {}
+        }
+      },
+      "VOD.Film.Common/1.0.0": {
+        "runtime": {
+          "VOD.Film.Common.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "VOD.Film.Admin.UI/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "VOD.Film.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

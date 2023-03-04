@@ -1,0 +1,97 @@
+﻿@page "/film-details/{FilmId:int}"
+@using VOD.Film.Common.DTOs;
+@using VOD.Film.Common.Services.ClientService;
+
+@inject IClientService _clientService
+@inject NavigationManager _navManager
+
+ @if(Film == null) {
+    <p><em>Loading...</em></p>
+}
+else{
+
+    <VideoPlayer VideoUrl="@Film.FilmUrl" VideoType="video/mp4" 
+    @ref="VideoPlayerRef" />
+    <div class="details-container">
+        <div class="details-content">
+            <img src="@Film.FilmPosterUrl" class="details-poster"  @onclick="ToggleFullScreen"/>
+            <div class="details-text">
+                <h2>@Film.Title</h2>
+                <p>@Film.Description</p>
+                @if(Film.Director != null)
+                {
+                    <h3>Director</h3>
+                    <p>@Film.Director.Name</p>
+                }
+                @if(Film.FilmGenres != null && Film.FilmGenres.Count > 0)
+                {
+                    <h3>Genres</h3>
+                    <ul>
+                        @foreach (var genre in Film.FilmGenres)
+                        {
+                            <li>@genre.Name</li>
+                        }
+                    </ul>
+                }
+            
+                
+                    @if (Film.SimilarFilms != null && Film.SimilarFilms.Count > 0)
+                    {
+                    <h3>Similar Films</h3>
+                   
+                    <ul class="similar-films">
+
+                        @foreach (var similarFilm in Film.SimilarFilms)
+                        {
+                            <li>
+                                <a href="@($"/film-details/{similarFilm.SimilarFilmId}")"
+                                 @onclick="(() => SelectSimilarFilm(similarFilm.SimilarFilmId))">
+                                    <img src="@similarFilm.FilmPosterUrl" class="similar-poster" />
+                                    <span class="similar-title">@similarFilm.Title</span>
+                                    </a>
+                            </li>
+                        }
+                        </ul>
+                    }
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private VideoPlayer? VideoPlayerRef;
+
+    private async Task ToggleFullScreen()
+    {
+        if (VideoPlayerRef == null) return;
+        await VideoPlayerRef.ToggleFullScreen();
+    }
+    EventCallback<string> OnFilmClick;
+    
+    
+    [Parameter]
+    public int FilmId { get; set; }
+
+    public FilmDTO Film { get; set; }
+
+    private async Task SelectSimilarFilm(int similarFilmId)
+    {
+        FilmId = similarFilmId;
+        _navManager.NavigateTo($"film-details/{FilmId}");
+        Film = await GetSelectedFilmAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Film = await GetSelectedFilmAsync();
+    }
+
+    private async Task<FilmDTO> GetSelectedFilmAsync()
+    {
+        return await _clientService.GetAsync<FilmDTO>($"film/{FilmId}?IncludeAll=true");
+    }
+    
+
+
+
+}
